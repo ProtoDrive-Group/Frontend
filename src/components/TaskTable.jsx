@@ -9,8 +9,33 @@ import {
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import TaskTableCard from './TaskTableCard.jsx'
+import { useTaskListQuery } from '@/store/pushNoteApi.js'
 
 export default function TaskTable() {
+    // const { data, isLoading } = useTaskListQuery();
+
+    // if (isLoading) return <div>Loading... </div>
+
+    const data = {
+        results: [
+            {
+                title: 'Frontend setup',
+                description: 'Setup the frontend',
+                deadline: '22nd Oct',
+            },
+            {
+                title: 'Frontend Delpoyment',
+                description: 'Deploy frontend on vercel',
+                deadline: '22nd Oct',
+            },
+            {
+                title: 'Backend setup',
+                description: 'Setup the backend using django',
+                deadline: '22nd Oct',
+            },
+        ]
+    }
+
     return (
         <Card
             style={{
@@ -25,7 +50,7 @@ export default function TaskTable() {
                     variant='unstyled'
                     style={{
                         paddingInline: '10px',
-                        fontWeight: '500',
+                        fontWeight: '600',
                         borderRadius: '4px',
                         fontSize: '1.1rem',
                         boxShadow: 'none',
@@ -38,8 +63,9 @@ export default function TaskTable() {
             </CardHeader>
             <CardBody style={{ padding: 10 }}>
                 <Stack>
-                    <TaskTableCard task={{ title: 'Setup frontend', taskId: '1' }} />
-                    <TaskTableCard task={{ title: 'Create Goal', taskId:'2' }}/>
+                    {data.results.map(task => (
+                        <TaskTableCard task={task} key={task.id}/>
+                    ))}
                 </Stack>
             </CardBody>
             <CardFooter style={{ padding: 10 }}>
