@@ -1,40 +1,23 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Input,
-  Button,
-  Stack,
-} from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import TaskTableCard from "./TaskTableCard.jsx";
-import { useTaskListQuery } from "@/store/pushNoteApi.js";
+    Card,
+    CardHeader,
+    CardBody,
+    CardFooter,
+    Input,
+    Button,
+    Stack,
+} from '@chakra-ui/react'
+import { AddIcon } from '@chakra-ui/icons'
+import TaskTableCard from './TaskTableCard.jsx'
+import { useTaskListQuery } from '@/store/pushNoteApi.js'
+import { useSelector } from 'react-redux'
 
 export default function TaskTable() {
   // const { data, isLoading } = useTaskListQuery();
 
   // if (isLoading) return <div>Loading... </div>
 
-  const data = {
-    results: [
-      {
-        title: "Frontend setup",
-        description: "Setup the frontend",
-        deadline: "2023-10-23T21:50:00+05:30",
-      },
-      {
-        title: "Frontend Delpoyment",
-        description: "Deploy frontend on vercel",
-        deadline: "2023-10-23T21:50:00+05:30",
-      },
-      {
-        title: "Backend setup",
-        description: "Setup the backend using django",
-        deadline: "2023-10-23T21:50:00+05:30",
-      },
-    ],
-  };
+    const data = useSelector(state => state.task)
 
   return (
     <Card
