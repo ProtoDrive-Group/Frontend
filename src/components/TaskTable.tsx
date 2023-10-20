@@ -6,14 +6,11 @@ import {
     Input,
     Button,
     Stack,
-    useDisclosure,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
-import TaskTableCard from './TaskTableCard'
-import TaskDetails from '@/components/TaskDetails'
+import TaskTableCard from './TaskTableCard.jsx'
 
 export default function TaskTable() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Card
             style={{
@@ -41,8 +38,8 @@ export default function TaskTable() {
             </CardHeader>
             <CardBody style={{ padding: 10 }}>
                 <Stack>
-                    <TaskTableCard />
-                    <TaskTableCard />
+                    <TaskTableCard task={{ title: 'Setup frontend', taskId: '1' }} />
+                    <TaskTableCard task={{ title: 'Create Goal', taskId:'2' }}/>
                 </Stack>
             </CardBody>
             <CardFooter style={{ padding: 10 }}>
@@ -55,14 +52,6 @@ export default function TaskTable() {
                     Add Card
                 </Button>
             </CardFooter>
-            <TaskDetails
-                title="Build user page"
-                description={"On progress bl;ahjisdfjaksdrasdnkakd"}
-                deadline={"2023-10-23T23:59:00+05:30"}
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-            />
         </Card>
     )
 }
