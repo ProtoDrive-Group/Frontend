@@ -15,6 +15,7 @@ export default function TaskTableCard({ task }) {
                 <Text>{task.title}</Text>
             </CardBody>
             <TaskDetails
+                id={task.id}
                 title={task.title}
                 description={task.description}
                 deadline={new Date(task.deadline)}
