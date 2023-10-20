@@ -29,7 +29,12 @@ const taskSlice = createSlice({
   reducers: {
     add(state, action) {
       const payload = action.payload;
+      const { task } = payload;
 
+      state.results.push({
+        id: state.results.length + 1,
+        ...task,
+      })
     },
     update(state, action) {
       const payload = action.payload;

@@ -1,4 +1,4 @@
-import { update } from "@/store/taskSlice";
+import { add, update } from "@/store/taskSlice";
 import {
   Button,
   Modal,
@@ -39,14 +39,24 @@ const TaskDetails = ({
   const dispatch = useDispatch();
 
   function handleSave() {
-    dispatch(update({
-      taskId: id,
-      task: {
-        title: titleRef.current.value,
-        description: descriptionRef.current.value,
-        deadline: deadlineRef.current.value,
-      }
-    }))
+    if (id) {
+      dispatch(update({
+        taskId: id,
+        task: {
+          title: titleRef.current.value,
+          description: descriptionRef.current.value,
+          deadline: deadlineRef.current.value,
+        }
+      }))
+    } else {
+      dispatch(add({
+        task: {
+          title: titleRef.current.value,
+          description: descriptionRef.current.value,
+          deadline: deadlineRef.current.value,
+        },
+      }))
+    }
 
     onClose();
   }
@@ -64,8 +74,6 @@ const TaskDetails = ({
             <Textarea
               placeholder="Enter Task description here..."
               defaultValue={description}
-              p={0}
-              px={1}
               ref={descriptionRef}
             />
             <p>Deadline</p>

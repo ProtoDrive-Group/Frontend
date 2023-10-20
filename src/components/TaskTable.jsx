@@ -1,23 +1,25 @@
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    Input,
-    Button,
-    Stack,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
+  Input,
+  Button,
+  Stack,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import TaskTableCard from './TaskTableCard.jsx'
 import { useTaskListQuery } from '@/store/pushNoteApi.js'
 import { useSelector } from 'react-redux'
+import TaskDetails from './TaskDetails.jsx'
 
 export default function TaskTable() {
   // const { data, isLoading } = useTaskListQuery();
 
   // if (isLoading) return <div>Loading... </div>
-
-    const data = useSelector(state => state.task)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const data = useSelector(state => state.task)
 
   return (
     <Card
@@ -55,9 +57,15 @@ export default function TaskTable() {
           colorScheme="teal"
           variant="solid"
           size={"sm"}
+          onClick={onOpen}
         >
           Add Card
         </Button>
+        <TaskDetails
+          isOpen={isOpen}
+          onOpen={onOpen}
+          onClose={onClose}
+        />
       </CardFooter>
     </Card>
   );
