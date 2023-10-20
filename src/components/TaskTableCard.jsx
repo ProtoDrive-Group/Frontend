@@ -17,7 +17,7 @@ export default function TaskTableCard({ task }) {
             <TaskDetails
                 title={task.title}
                 description={task.description}
-                deadline={task.deadline}
+                deadline={new Date(task.deadline)}
                 isOpen={isOpen}
                 onOpen={onOpen}
                 onClose={onClose}
