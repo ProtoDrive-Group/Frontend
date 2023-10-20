@@ -6,19 +6,19 @@ const initialState = {
       id: 1,
       title: 'Frontend setup',
       description: 'Setup the frontend',
-      deadline: '22nd Oct',
+      deadline: '2023-09-30T12:02',
     },
     {
       id: 2,
       title: 'Frontend Delpoyment',
       description: 'Deploy frontend on vercel',
-      deadline: '22nd Oct',
+      deadline: '2023-09-30T12:02',
     },
     {
       id: 3,
       title: 'Backend setup',
       description: 'Setup the backend using django',
-      deadline: '22nd Oct',
+      deadline: '2023-09-30T12:02',
     },
   ]
 }

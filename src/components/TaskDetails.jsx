@@ -80,7 +80,7 @@ const TaskDetails = ({
             <Input
               placeholder="Select Date and Time"
               size="md"
-              type="datetime"
+              type="datetime-local"
               defaultValue={deadline}
               ref={deadlineRef}
             />
