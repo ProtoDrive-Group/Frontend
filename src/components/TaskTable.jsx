@@ -41,7 +41,7 @@ export default function TaskTable() {
           _focus={{
             outline: "2px solid #3182ce",
           }}
-          value="Frontend"
+          defaultValue="Frontend"
         />
       </CardHeader>
       <CardBody style={{ padding: 10 }}>
