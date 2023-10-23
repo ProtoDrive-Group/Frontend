@@ -14,15 +14,18 @@ export default function TaskTableCard({ task }) {
             <CardBody style={{ padding: 10 }} onClick={onOpen}>
                 <Text>{task.title}</Text>
             </CardBody>
-            <TaskDetails
-                id={task.id}
-                title={task.title}
-                description={task.description}
-                deadline={task.deadline}
-                isOpen={isOpen}
-                onOpen={onOpen}
-                onClose={onClose}
-            />
+            {isOpen ?
+                <TaskDetails
+                    id={task.id}
+                    title={task.title}
+                    description={task.description}
+                    deadline={task.deadline}
+                    isOpen={true}
+                    onOpen={onOpen}
+                    onClose={onClose}
+                /> :
+                null
+            }
         </Card>
     )
 }

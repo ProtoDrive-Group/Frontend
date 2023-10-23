@@ -44,6 +44,9 @@ export const pushNoteApi = createApi({
           members,
         }
       })
+    }),
+    userList: builder.query({
+      query: () => `/users/`,
     })
   }),
 })
@@ -55,4 +58,5 @@ export const {
   useTaskByIdQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
+  useUserListQuery,
 } = pushNoteApi
