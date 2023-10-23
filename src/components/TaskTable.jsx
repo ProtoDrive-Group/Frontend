@@ -11,15 +11,13 @@ import {
 import { AddIcon } from '@chakra-ui/icons'
 import TaskTableCard from './TaskTableCard.jsx'
 import { useTaskListQuery } from '@/store/pushNoteApi.js'
-import { useSelector } from 'react-redux'
 import TaskDetails from './TaskDetails.jsx'
 
 export default function TaskTable() {
-  // const { data, isLoading } = useTaskListQuery();
-
-  // if (isLoading) return <div>Loading... </div>
+  const { data: tasksData, isLoading } = useTaskListQuery();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const data = useSelector(state => state.task)
+
+  if (isLoading) return <div>Loading... </div>
 
   return (
     <Card
@@ -46,7 +44,7 @@ export default function TaskTable() {
       </CardHeader>
       <CardBody style={{ padding: 10 }}>
         <Stack>
-          {data.results.map((task) => (
+          {tasksData.results.map((task) => (
             <TaskTableCard task={task} key={task.id} />
           ))}
         </Stack>

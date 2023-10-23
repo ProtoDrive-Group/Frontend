@@ -1,4 +1,4 @@
-import { add, update } from "@/store/taskSlice";
+import { useCreateTaskMutation, useUpdateTaskMutation } from "@/store/pushNoteApi";
 import {
   Button,
   Modal,
@@ -12,16 +12,6 @@ import {
   Input,
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
-
-// interface TaskDetailsProps {
-//   title: string;
-//   description: string;
-//   deadline: string;
-//   isOpen: boolean;
-//   onOpen: () => void;
-//   onClose: () => void;
-// }
 
 const TaskDetails = ({
   id,
@@ -36,26 +26,25 @@ const TaskDetails = ({
   const descriptionRef = useRef();
   const deadlineRef = useRef();
 
-  const dispatch = useDispatch();
+  const dateWithoutOffset = deadline && new Date(deadline).toISOString().slice(0, -5);
+
+  const [updateTask] = useUpdateTaskMutation();
+  const [createTask] = useCreateTaskMutation();
 
   function handleSave() {
     if (id) {
-      dispatch(update({
+      updateTask({
         taskId: id,
-        task: {
-          title: titleRef.current.value,
-          description: descriptionRef.current.value,
-          deadline: deadlineRef.current.value,
-        }
-      }))
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        deadline: deadlineRef.current.value,
+      })
     } else {
-      dispatch(add({
-        task: {
-          title: titleRef.current.value,
-          description: descriptionRef.current.value,
-          deadline: deadlineRef.current.value,
-        },
-      }))
+      createTask({
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        deadline: deadlineRef.current.value,
+      })
     }
 
     onClose();
@@ -81,7 +70,7 @@ const TaskDetails = ({
               placeholder="Select Date and Time"
               size="md"
               type="datetime-local"
-              defaultValue={deadline}
+              defaultValue={dateWithoutOffset}
               ref={deadlineRef}
             />
           </ModalBody>
