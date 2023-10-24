@@ -1,16 +1,29 @@
 import React from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+import { AUTH } from '@/constants/main'
+import Cookies from "universal-cookie";
+import { useLazySelfUserQuery } from '../store/pushNoteApi.js'
 
 const Auth = () => {
+  const [lazySelfQuery] = useLazySelfUserQuery();
   const authParams = useSearchParams();
+  const router = useRouter();
 
+  const cookies = new Cookies(null, { path: '/' })
   const token = authParams.get("token");
 
-  console.log("Token sir soming", token);
+  useEffect(() => {
+    if (token) {
+      cookies.set(AUTH.SESSION_TOKEN, token, {})
+      lazySelfQuery()
+      router.push('/')
+    }
+  }, [cookies, token])
 
-  // URL -> /dashboard?search=my-project
-  // search -> 'my-project'
-  return <div></div>;
+  return (
+    <div>Loading...</div>
+  )
 };
 
 export default Auth;

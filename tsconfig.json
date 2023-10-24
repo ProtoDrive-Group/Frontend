@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/store/pushNoteApi.js", "src/pages/_app.jsx", "src/pages/_document.jsx", "src/pages/index.jsx", "src/components/TaskTableCard.jsx", "src/components/TaskTable.jsx", "src/components/TaskDetails.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/store/pushNoteApi.js", "src/pages/_app.jsx", "src/pages/_document.jsx", "src/pages/index.jsx", "src/components/TaskTableCard.jsx", "src/components/TaskTable.jsx", "src/components/TaskDetails.jsx", "src/provider/CookiesProvider.jsx", "src/provider/RouteGaurd.jsx"],
   "exclude": ["node_modules"]
 }

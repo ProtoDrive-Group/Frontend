@@ -1,16 +1,17 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import Cookies from 'universal-cookie'
+import { AUTH } from '@/constants/main';
 
-// Define a service using a base URL and expected endpoints
 export const pushNoteApi = createApi({
   reducerPath: 'pushNoteApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://pushnote-api-production.up.railway.app/api/v1',
     prepareHeaders: (headers) => {
+      const cookies = new Cookies(null, { path: '/' })
       headers.set('authorization',
-        `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk4MjQ3MTM0LCJpYXQiOjE2OTc4MTUxMzQsImp0aSI6IjRjZjM3Y2JkYmYzMzRhNWU5OTQ4M2EwODljZDlhYzYzIiwidXNlcl9pZCI6IjljMjRmZjJhLTM4MDMtNGYzMy1hM2YyLTNhZjE5MTRhYWE2YyJ9.d4w4zUcp5Bx64-qUYGhaE_pakx7Wt2l5hFvtI6kU7tA`
+        `Bearer ${cookies.get(AUTH.SESSION_TOKEN)}`
       )
-
       return headers
     }
   }),
@@ -47,6 +48,9 @@ export const pushNoteApi = createApi({
     }),
     userList: builder.query({
       query: () => `/users/`,
+    }),
+    selfUser: builder.query({
+      query: () => '/user/self/',
     })
   }),
 })
@@ -59,4 +63,7 @@ export const {
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useUserListQuery,
+
+  useSelfUserQuery,
+  useLazySelfUserQuery,
 } = pushNoteApi

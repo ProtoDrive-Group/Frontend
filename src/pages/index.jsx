@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <AppNavBar />
       <Stack direction='row' style={{ paddingInline: 40, paddingBlock: 20 }}>
-        <TaskTable />
+        {/* <TaskTable /> */}
       </Stack>
     </>
   );
