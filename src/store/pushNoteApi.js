@@ -8,7 +8,10 @@ export const pushNoteApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://pushnote-api-production.up.railway.app/api/v1',
     prepareHeaders: (headers) => {
-      const cookies = new Cookies(null, { path: '/' })
+      const cookies = new Cookies(null, { 
+        path: '/',
+        maxAge: 34560000,
+      })
       headers.set('authorization',
         `Bearer ${cookies.get(AUTH.SESSION_TOKEN)}`
       )
