@@ -1,8 +1,28 @@
 import OrganizationCard from "@/components/OrganizationCard";
-
+import { useOrganizationListQuery } from "@/store/pushNoteApi";
+import { Box, Container, Flex, Stack } from "@chakra-ui/react";
 
 export default function Organization() {
+    const { data: organizations, isLoading } = useOrganizationListQuery();
+
+    if (isLoading) return;
+
     return (
-        <OrganizationCard />
+        <Container>
+            <Flex style={{ flexWrap: 'wrap', justifyContent: 'space-around', gap: '10px' }}>
+                {organizations.map(organization => (
+                    <Box 
+                        key={organization.id}
+                        style={{
+                            width: 'clamp(200px, 100%, 230px)'
+                        }}
+                    >
+                        <OrganizationCard
+                            title={organization.title}
+                        />
+                    </Box>
+                ))}
+            </Flex>
+        </Container>
     )
 }

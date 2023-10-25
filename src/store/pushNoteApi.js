@@ -54,6 +54,9 @@ export const pushNoteApi = createApi({
     }),
     selfUser: builder.query({
       query: () => '/user/self/',
+    }),
+    organizationList: builder.query({
+      query: () => `/organization/`,
     })
   }),
 })
@@ -69,4 +72,6 @@ export const {
 
   useSelfUserQuery,
   useLazySelfUserQuery,
+
+  useOrganizationListQuery,
 } = pushNoteApi

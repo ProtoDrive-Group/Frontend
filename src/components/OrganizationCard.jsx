@@ -1,6 +1,13 @@
+import { Card, CardBody, Text } from "@chakra-ui/react";
 
-export default function OrganizationCard() {
+export default function OrganizationCard({ title }) {
     return (
-        <div></div>
+        <Card>
+            <CardBody>
+                <Text textAlign={"center"}>
+                    {title}
+                </Text>
+            </CardBody>
+        </Card>
     )
 }
