@@ -11,7 +11,6 @@ const Auth = () => {
   const cookies = new Cookies(null, { path: '/', maxAge: 34560000 })
   const token = authParams.get("token");
 
-  console.log(AUTH.SESSION_TOKEN)
   useEffect(() => {
     if (token) {
       cookies.set(AUTH.SESSION_TOKEN, token, {})
