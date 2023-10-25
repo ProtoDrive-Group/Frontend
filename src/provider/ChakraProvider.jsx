@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { ChakraProvider } from '@chakra-ui/react'
 import { extendTheme } from '@chakra-ui/react'
 
@@ -12,11 +11,8 @@ const colors = {
 
 export const theme = extendTheme({ colors })
 
-interface Props {
-  children?: ReactNode
-}
 
-export default function ThemeProvider({ children }: Props) {
+export default function ThemeProvider({ children }) {
   return (
     <ChakraProvider theme={theme}>
       {children}
