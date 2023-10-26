@@ -5,6 +5,7 @@ import { AUTH } from '@/constants/main';
 
 export const pushNoteApi = createApi({
   reducerPath: 'pushNoteApi',
+  tagTypes: ['board', 'table', 'member', 'organization', 'task' ],
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://pushnote-api-production.up.railway.app/api/v1',
     prepareHeaders: (headers) => {
@@ -20,16 +21,29 @@ export const pushNoteApi = createApi({
   }),
   endpoints: (builder) => ({
     createTask: builder.mutation({
-      query: ({ title, description, deadline, members = [] }) => ({
-        url: '/tasks/',
+      query: ({ 
+        title, 
+        description, 
+        deadline, 
+        members = [], 
+        tableId, 
+        organizationCode, 
+        boardId 
+      }) => ({
+        url: `/board/${boardId}/create_task/`,
+        params: {
+          org_code: organizationCode,
+        },
         method: 'POST',
         body: {
           title,
           description,
           deadline,
           members,
+          table_id: tableId,
         }
-      })
+      }),
+      invalidatesTags: ['board']
     }),
     updateTask: builder.mutation({
       query: ({ taskId, title, description, deadline, members = [] }) => ({
@@ -41,7 +55,8 @@ export const pushNoteApi = createApi({
           deadline,
           members,
         }
-      })
+      }),
+      invalidatesTags: ['board']
     }),
     userList: builder.query({
       query: () => `/users/`,
@@ -51,6 +66,7 @@ export const pushNoteApi = createApi({
     }),
     organizationList: builder.query({
       query: () => `/organization/`,
+      providesTags: ['organization'],
     }),
     boardList: builder.query({
       query: ({ organizationCode }) => ({
@@ -58,7 +74,8 @@ export const pushNoteApi = createApi({
         params: {
           org_code: organizationCode,
         }
-      })
+      }),
+      providesTags: ['board'],
     }),
     boardDetail: builder.query({
       query: ({ boardId, organizationCode }) => ({
@@ -66,7 +83,21 @@ export const pushNoteApi = createApi({
         params: {
           org_code: organizationCode,
         }
-      })
+      }),
+      providesTags: ['board']
+    }),
+    createTable: builder.mutation({
+      query: ({ boardId, organizationCode, title }) => ({
+        url: `/board/${boardId}/create_table/`,
+        params: {
+          org_code: organizationCode,
+        },
+        body: {
+          title,
+        },
+        method: 'POST',
+      }),
+      invalidatesTags: ['board'],
     })
   }),
 })
@@ -85,4 +116,6 @@ export const {
 
   useBoardListQuery,
   useBoardDetailQuery,
+
+  useCreateTableMutation,
 } = pushNoteApi

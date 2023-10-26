@@ -6,18 +6,22 @@ import {
   Input,
   Button,
   Stack,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import TaskTableCard from './TaskTableCard.jsx'
 import { useRouter } from 'next/router.js'
+import TableTaskCreate from './TableTaskCreate.jsx';
 
-export default function Table({ table }) {
+export default function Table({ table, createTask }) {
   const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Card
       style={{
         width: "284px",
+        height: 'min-content',
       }}
     >
       <CardHeader style={{ padding: 10 }}>
@@ -40,31 +44,28 @@ export default function Table({ table }) {
       <CardBody style={{ padding: 10 }}>
         <Stack>
           {table.tasks.map((task) => (
-            <TaskTableCard 
-              task={task} 
-              key={task.id} 
+            <TaskTableCard
+              task={task}
+              key={task.id}
             />
           ))}
+
         </Stack>
       </CardBody>
       <CardFooter style={{ padding: 10 }}>
-        <Button
-          leftIcon={<AddIcon />}
-          colorScheme="teal"
-          variant="solid"
-          size={"sm"}
-          onClick={() => {
-            router.push({
-              pathname: router.pathname,
-              query: {
-                ...router.query,
-                taskId: 'new',
-              }
-            })
-          }}
-        >
-          Add Card
-        </Button>
+        {isOpen ?
+          <TableTaskCreate onSubmit={(title) => createTask({ title })} onClose={onClose} /> :
+          <Button
+            leftIcon={<AddIcon />}
+            colorScheme="teal"
+            variant="solid"
+            size={"sm"}
+            onClick={onOpen}
+          >
+            Add Card
+          </Button>
+        }
+
       </CardFooter>
     </Card>
   );
