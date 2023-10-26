@@ -18,23 +18,15 @@ import {
 import Link from "next/link";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
-// interface Props {
-//   children: React.ReactNode;
-// }
-
 const NavBarOptions = [
   {
     display: "Dashboard",
     link: "/",
   },
   {
-    display: "Projects",
-    link: "/",
-  },
-  {
-    display: "Team",
-    link: "/",
-  },
+    display: "Organization",
+    link: "/organization",
+  }
 ];
 
 export default function AppNavBar() {
