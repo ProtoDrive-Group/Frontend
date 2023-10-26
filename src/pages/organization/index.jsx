@@ -19,6 +19,10 @@ export default function Organization() {
                     >
                         <OrganizationCard
                             organization={organization}
+                            href={{
+                                pathname: '/board',
+                                query: { org: organization.code }
+                            }}
                         />
                     </Box>
                 ))}

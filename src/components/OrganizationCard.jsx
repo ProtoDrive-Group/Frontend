@@ -1,9 +1,9 @@
 import { Card, CardBody, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-export default function OrganizationCard({ organization }) {
+export default function OrganizationCard({ organization, href }) {
     return (
-        <Link href={`/organization/${organization.code}`}>
+        <Link href={href}>
             <Card>
                 <CardBody>
                     <Text textAlign={"center"}>
