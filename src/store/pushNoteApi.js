@@ -19,12 +19,6 @@ export const pushNoteApi = createApi({
     }
   }),
   endpoints: (builder) => ({
-    taskList: builder.query({
-      query: () => `/tasks/`,
-    }),
-    taskById: builder.query({
-      query: (taskId) => `/tasks/${taskId}/`
-    }),
     createTask: builder.mutation({
       query: ({ title, description, deadline, members = [] }) => ({
         url: '/tasks/',
@@ -58,11 +52,19 @@ export const pushNoteApi = createApi({
     organizationList: builder.query({
       query: () => `/organization/`,
     }),
-    boardDetail: builder.query({
-      query: ({ organizationId }) => ({
+    boardList: builder.query({
+      query: ({ organizationCode }) => ({
         url: `/board/`,
         params: {
-          org_code: organizationId,
+          org_code: organizationCode,
+        }
+      })
+    }),
+    boardDetail: builder.query({
+      query: ({ boardId, organizationCode }) => ({
+        url: `/board/${boardId}/detail_board/`,
+        params: {
+          org_code: organizationCode,
         }
       })
     })
@@ -72,8 +74,6 @@ export const pushNoteApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useTaskListQuery,
-  useTaskByIdQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
   useUserListQuery,
@@ -83,5 +83,6 @@ export const {
 
   useOrganizationListQuery,
 
+  useBoardListQuery,
   useBoardDetailQuery,
 } = pushNoteApi

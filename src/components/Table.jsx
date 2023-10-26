@@ -6,18 +6,13 @@ import {
   Input,
   Button,
   Stack,
-  useDisclosure,
 } from '@chakra-ui/react'
 import { AddIcon } from '@chakra-ui/icons'
 import TaskTableCard from './TaskTableCard.jsx'
-import { useTaskListQuery } from '@/store/pushNoteApi.js'
-import TaskDetails from './TaskDetails.jsx'
+import { useRouter } from 'next/router.js'
 
-export default function TaskTable() {
-  const { data: tasksData, isLoading } = useTaskListQuery();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  if (isLoading) return <div>Loading... </div>
+export default function Table({ table }) {
+  const router = useRouter();
 
   return (
     <Card
@@ -39,13 +34,16 @@ export default function TaskTable() {
           _focus={{
             outline: "2px solid #3182ce",
           }}
-          defaultValue="Frontend"
+          defaultValue={table.title}
         />
       </CardHeader>
       <CardBody style={{ padding: 10 }}>
         <Stack>
-          {tasksData.results.map((task) => (
-            <TaskTableCard task={task} key={task.id} />
+          {table.tasks.map((task) => (
+            <TaskTableCard 
+              task={task} 
+              key={task.id} 
+            />
           ))}
         </Stack>
       </CardBody>
@@ -55,15 +53,18 @@ export default function TaskTable() {
           colorScheme="teal"
           variant="solid"
           size={"sm"}
-          onClick={onOpen}
+          onClick={() => {
+            router.push({
+              pathname: router.pathname,
+              query: {
+                ...router.query,
+                taskId: 'new',
+              }
+            })
+          }}
         >
           Add Card
         </Button>
-        <TaskDetails
-          isOpen={isOpen}
-          onOpen={onOpen}
-          onClose={onClose}
-        />
       </CardFooter>
     </Card>
   );

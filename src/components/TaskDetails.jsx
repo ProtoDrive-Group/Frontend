@@ -8,7 +8,6 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  Textarea,
   Input,
   Select,
   FormControl,
@@ -17,20 +16,23 @@ import {
 import React, { useRef } from "react";
 
 const TaskDetails = ({
-  id,
-  title,
-  description,
-  deadline,
-  isOpen,
-  onOpen,
+  task,
   onClose,
 }) => {
+  const {
+    id,
+    title,
+    members,
+    deadline,
+    description,
+  } = task
+
   const titleRef = useRef();
   const descriptionRef = useRef();
   const deadlineRef = useRef();
 
   const dateWithoutOffset = deadline && new Date(deadline).toISOString().slice(0, -5);
-  const { data: userList, isLoading: isUserListLoading } = useUserListQuery();
+  // const { data: userList, isLoading: isUserListLoading } = useUserListQuery();
 
   const [updateTask] = useUpdateTaskMutation();
   const [createTask] = useCreateTaskMutation();
@@ -55,7 +57,7 @@ const TaskDetails = ({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
