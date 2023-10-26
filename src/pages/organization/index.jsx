@@ -1,6 +1,6 @@
 import OrganizationCard from "@/components/OrganizationCard";
 import { useOrganizationListQuery } from "@/store/pushNoteApi";
-import { Box, Container, Flex, Stack } from "@chakra-ui/react";
+import { Box, Container, Flex } from "@chakra-ui/react";
 
 export default function Organization() {
     const { data: organizations, isLoading } = useOrganizationListQuery();
@@ -18,7 +18,7 @@ export default function Organization() {
                         }}
                     >
                         <OrganizationCard
-                            title={organization.title}
+                            organization={organization}
                         />
                     </Box>
                 ))}

@@ -57,6 +57,14 @@ export const pushNoteApi = createApi({
     }),
     organizationList: builder.query({
       query: () => `/organization/`,
+    }),
+    boardDetail: builder.query({
+      query: ({ organizationId }) => ({
+        url: `/board/`,
+        params: {
+          org_code: organizationId,
+        }
+      })
     })
   }),
 })
@@ -74,4 +82,6 @@ export const {
   useLazySelfUserQuery,
 
   useOrganizationListQuery,
+
+  useBoardDetailQuery,
 } = pushNoteApi
